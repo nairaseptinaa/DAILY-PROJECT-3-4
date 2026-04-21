@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIPALUM — Sistem Pelacakan Alumni UMM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --navy-light: #1d3461;
+    --gold: #c9963a;
+    --gold-light: #e8b865;
+    --gold-pale: #f5e6c8;
+    --cream: #faf7f2;
+    --text: #1a1a2e;
+    --text-muted: #6b7280;
+    --border: #e5e0d8;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --shadow: 0 4px 24px rgba(10,22,40,0.12);
+    --shadow-lg: 0 12px 48px rgba(10,22,40,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ───── LOGIN PAGE ───── */
+  #login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .login-left {
+    width: 50%;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-left::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(201,150,58,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .login-left::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(201,150,58,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .login-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .login-logo-icon {
+    width: 52px; height: 52px;
+    background: var(--gold);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+
+  .login-logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .login-logo-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .login-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    position: relative; z-index: 1;
+  }
+
+  .login-headline em {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+
+  .login-desc {
+    color: rgba(255,255,255,0.6);
+    font-size: 15px;
+    line-height: 1.7;
+    position: relative; z-index: 1;
+    max-width: 360px;
+  }
+
+  .login-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    position: relative; z-index: 1;
+  }
+
+  .login-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--gold-light);
+  }
+
+  .login-stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .login-right {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background: var(--cream);
+  }
+
+  .login-form-box {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .login-form-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .login-form-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .form-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,150,58,0.12);
+  }
+
+  .login-hint {
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,150,58,0.3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    color: #7a5c1e;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .login-hint strong { color: #5a3e0e; }
+
+  .btn-primary {
+    width: 100%;
+    padding: 13px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-primary:hover { background: var(--navy-light); }
+  .btn-primary:active { transform: scale(0.99); }
+
+  .login-error {
+    color: var(--red);
+    font-size: 13px;
+    margin-top: 10px;
+    display: none;
+  }
+
+  /* ───── MAIN APP ───── */
+  #app { display: none; min-height: 100vh; }
+
+  /* Sidebar */
+  .layout { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 260px;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-header {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .sidebar-logo-icon {
+    width: 36px; height: 36px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .sidebar-logo-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .sidebar-logo-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .sidebar-nav {
+    padding: 16px 12px;
+    flex: 1;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 10px 6px;
+    margin-top: 8px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+    margin-bottom: 2px;
+    text-decoration: none;
+  }
+
+  .nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+  .nav-item.active { background: var(--gold); color: #fff; }
+  .nav-item.active .nav-icon { opacity: 1; }
+
+  .nav-icon { font-size: 16px; opacity: 0.7; }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .user-info {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+  }
+
+  .user-avatar {
+    width: 34px; height: 34px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600; color: #fff;
+  }
+
+  .user-name { font-size: 13px; color: #fff; font-weight: 500; }
+  .user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+  .logout-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.15s;
+    margin-top: 8px;
+    background: none; border: none;
+    font-family: 'DM Sans', sans-serif;
+    width: 100%;
+    text-align: left;
+  }
+  .logout-btn:hover { color: #fff; background: rgba(255,255,255,0.07); }
+
+  /* Main content */
+  .main {
+    margin-left: 260px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 50;
+  }
+
+  .page-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+  }
+
+  .page-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 1px; }
+
+  .topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+  .btn-sm {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    border: none;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: #fff;
+  }
+  .btn-gold:hover { background: #b8841f; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--navy);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--navy); }
+
+  .content { padding: 32px; flex: 1; }
+
+  /* ───── PAGES ───── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Dashboard */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    transition: box-shadow 0.2s;
+  }
+  .stat-card:hover { box-shadow: var(--shadow); }
+
+  .stat-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .stat-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .stat-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .badge-green { background: #d1fae5; color: #065f46; }
+  .badge-amber { background: #fef3c7; color: #92400e; }
+  .badge-red { background: #fee2e2; color: #991b1b; }
+  .badge-blue { background: #dbeafe; color: #1e40af; }
+
+  .stat-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label { font-size: 13px; color: var(--text-muted); }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    color: var(--navy);
+  }
+
+  .card-body { padding: 20px 24px; }
+
+  .faculty-bar-item {
+    margin-bottom: 14px;
+  }
+
+  .faculty-bar-header {
+    display: flex; justify-content: space-between;
+    font-size: 13px; margin-bottom: 5px;
+    color: var(--text);
+  }
+
+  .faculty-bar-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .faculty-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--navy), var(--gold));
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  .activity-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .activity-item:last-child { border-bottom: none; }
+
+  .activity-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .activity-text { font-size: 13px; color: var(--text); line-height: 1.4; }
+  .activity-time { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ───── SEARCH / ALUMNI TABLE PAGE ───── */
+  .search-bar-row {
+    display: flex; gap: 12px; margin-bottom: 20px; align-items: center;
+  }
+
+  .search-input-wrap {
+    position: relative; flex: 1;
+  }
+
+  .search-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--text-muted); font-size: 16px;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 11px 14px 11px 40px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--gold); }
+
+  .filter-select {
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+    min-width: 160px;
+    color: var(--text);
+  }
+  .filter-select:focus { border-color: var(--gold); }
+
+  .table-wrap {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  thead th {
+    background: var(--navy);
+    color: rgba(255,255,255,0.8);
+    padding: 13px 16px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+    cursor: pointer;
+  }
+  tbody tr:hover { background: var(--gold-pale); }
+  tbody tr:last-child { border-bottom: none; }
+
+  td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+  .status-found { background: #d1fae5; color: #065f46; }
+  .status-found .status-dot { background: var(--green); }
+  .status-verify { background: #fef3c7; color: #92400e; }
+  .status-verify .status-dot { background: var(--amber); }
+  .status-missing { background: #f3f4f6; color: #6b7280; }
+  .status-missing .status-dot { background: #9ca3af; }
+
+  .confidence-bar {
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .conf-track {
+    width: 60px; height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .conf-fill { height: 100%; border-radius: 3px; }
+  .conf-high { background: var(--green); }
+  .conf-mid { background: var(--amber); }
+  .conf-low { background: #d1d5db; }
+
+  .conf-text { font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+
+  .pagination {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    background: #fff;
+  }
+
+  .pagination-info { font-size: 13px; color: var(--text-muted); }
+
+  .pagination-btns { display: flex; gap: 6px; }
+
+  .pg-btn {
+    width: 32px; height: 32px;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    background: #fff;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .pg-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .pg-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+  /* ───── DETAIL MODAL ───── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(10,22,40,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: #fff;
+    border-radius: 18px;
+    width: 680px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.25s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+
+  .modal-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+  }
+
+  .modal-nim {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 3px;
+  }
+
+  .modal-close {
+    background: none; border: none;
+    font-size: 20px; cursor: pointer;
+    color: var(--text-muted);
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: var(--border); }
+
+  .modal-body { padding: 24px 28px; }
+
+  .modal-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+  .modal-section-title:first-child { margin-top: 0; }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .info-item label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+  }
+
+  .info-item span {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .contact-field {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-field:last-child { border-bottom: none; }
+
+  .contact-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .contact-value { font-size: 14px; color: var(--text); }
+  .contact-empty { font-size: 13px; color: #d1d5db; font-style: italic; }
+
+  .edit-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-top: 4px;
+  }
+  .edit-input:focus { border-color: var(--gold); }
+
+  .modal-footer {
+    padding: 16px 28px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: flex-end; gap: 10px;
+  }
+
+  .confidence-display {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px;
+    background: var(--cream);
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .conf-circle {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .conf-detail { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Sources section */
+  .source-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    background: #f3f4f6;
+    color: var(--text-muted);
+    margin: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .source-tag.checked { background: var(--navy); color: #fff; }
+
+  /* Audit log */
+  .audit-item {
+    display: flex; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .audit-item:last-child { border-bottom: none; }
+  .audit-time { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 11px; white-space: nowrap; }
+
+  /* ───── QUERY GENERATOR PAGE ───── */
+  .query-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .query-label {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .query-chip {
+    display: inline-block;
+    background: var(--navy);
+    color: #e8e8e8;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .query-chip:hover { background: var(--gold); }
+
+  .source-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .source-item {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .source-item:hover { border-color: var(--gold); background: var(--gold-pale); }
+  .source-item.active { border-color: var(--navy); background: var(--navy); color: #fff; }
+  .source-item.active .source-item-name { color: #fff; }
+  .source-item.active .source-item-desc { color: rgba(255,255,255,0.5); }
+
+  .source-item-icon { font-size: 20px; }
+  .source-item-name { font-size: 13px; font-weight: 500; }
+  .source-item-desc { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+  /* Scoring */
+  .score-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-name { flex: 1; font-size: 13px; }
+  .score-weight { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); width: 50px; }
+  .score-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; width: 40px; text-align: right; }
+  .score-bar { width: 100px; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 3px; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    background: var(--navy);
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(60px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 999;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 8px; }
+  .empty-desc { font-size: 14px; color: var(--text-muted); }
+
+  /* Responsive table */
+  @media (max-width: 1200px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .dashboard-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #c4bab0; }
+
+  /* Table no-results */
+  .no-results td { text-align: center; padding: 40px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="login-page">
+  <div class="login-left">
+    <div class="login-logo">
+      <div class="login-logo-icon">🎓</div>
+      <div>
+        <div class="login-logo-text">SIPALUM</div>
+        <div class="login-logo-sub">Universitas Muhammadiyah Malang</div>
+      </div>
+    </div>
+    <div class="login-headline">Sistem Pelacakan<br><em>Alumni Publik</em><br>UMM</div>
+    <div class="login-desc">Platform manajemen dan pelacakan data alumni berbasis confidence scoring — dirancang untuk kepentingan akademik dan tracer study institusi.</div>
+    <div class="login-stats">
+      <div>
+        <div class="login-stat-num">142K+</div>
+        <div class="login-stat-label">Total Alumni</div>
+      </div>
+      <div>
+        <div class="login-stat-num">106</div>
+        <div class="login-stat-label">Program Studi</div>
+      </div>
+      <div>
+        <div class="login-stat-num">25+</div>
+        <div class="login-stat-label">Tahun Data</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-form-box">
+      <div class="login-form-title">Masuk ke Sistem</div>
+      <div class="login-form-sub">Akses terbatas untuk admin & operator alumni UMM</div>
+
+      <div class="login-hint">
+        <strong>Demo login:</strong><br>
+        Username: <strong>admin.umm</strong> &nbsp;|&nbsp; Password: <strong>sipalum2025</strong>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" id="login-username" class="form-input" placeholder="Masukkan username" value="admin.umm">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="login-password" class="form-input" placeholder="Masukkan password" value="sipalum2025">
+      </div>
+
+      <button class="btn-primary" onclick="doLogin()">Masuk ke Sistem →</button>
+      <div class="login-error" id="login-error">Username atau password salah. Coba lagi.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon">🎓</div>
+          <div>
+            <div class="sidebar-logo-name">SIPALUM</div>
+            <div class="sidebar-logo-sub">Alumni UMM</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div class="nav-section-label">Menu Utama</div>
+        <div class="nav-item active" onclick="showPage('dashboard', this)">
+          <span class="nav-icon">📊</span> Dashboard
+        </div>
+        <div class="nav-item" onclick="showPage('alumni', this)">
+          <span class="nav-icon">👤</span> Data Alumni
+        </div>
+        <div class="nav-item" onclick="showPage('pelacakan', this)">
+          <span class="nav-icon">🔍</span> Jalankan Pelacakan
+        </div>
+        <div class="nav-item" onclick="showPage('query', this)">
+          <span class="nav-icon">⚙️</span> Generator Query
+        </div>
+
+        <div class="nav-section-label" style="margin-top:16px">Laporan</div>
+        <div class="nav-item" onclick="showPage('audit', this)">
+          <span class="nav-icon">📋</span> Jejak Audit
+        </div>
+        <div class="nav-item" onclick="showPage('statistik', this)">
+          <span class="nav-icon">📈</span> Statistik
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">A</div>
+          <div>
+            <div class="user-name" id="user-name-display">Admin</div>
+            <div class="user-role">Operator Alumni</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">⬅️ Keluar dari sistem</button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <div class="page-title" id="topbar-title">Dashboard</div>
+          <div class="page-subtitle" id="topbar-sub">Selamat datang di SIPALUM — Sistem Pelacakan Alumni UMM</div>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn-sm btn-outline" onclick="showPage('pelacakan', document.querySelector('[onclick*=pelacakan]'))">🔍 Jalankan Pelacakan</button>
+          <button class="btn-sm btn-gold" onclick="showPage('alumni', document.querySelector('[onclick*=alumni]'))">+ Tambah Data</button>
+        </div>
+      </div>
+
+      <div class="content">
+
+        <!-- DASHBOARD -->
+        <div class="page active" id="page-dashboard">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon" style="background:#eff6ff">👥</div>
+                <span class="stat-badge badge-blue">Total</span>
+              </div>
+              <div class="stat-value" id="stat-total">142,292</div>
+              <div class="stat-label">Total Alumni Terdaftar</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon" style="background:#d1fae5">✅</div>
+                <span class="stat-badge badge-green" id="stat-found-pct">–</span>
+              </div>
+              <div class="stat-value" id="stat-found">0</div>
+              <div class="stat-label">Teridentifikasi</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon" style="background:#fef3c7">⏳</div>
+                <span class="stat-badge badge-amber" id="stat-verify-pct">–</span>
+              </div>
+              <div class="stat-value" id="stat-verify">0</div>
+              <div class="stat-label">Perlu Verifikasi</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon" style="background:#f3f4f6">❓</div>
+                <span class="stat-badge badge-red" id="stat-missing-pct">–</span>
+              </div>
+              <div class="stat-value" id="stat-missing">0</div>
+              <div class="stat-label">Belum Ditemukan</div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Alumni per Fakultas</div>
+                <span style="font-size:12px;color:var(--text-muted)">Top 6</span>
+              </div>
+              <div class="card-body" id="faculty-chart"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Aktivitas Terbaru</div>
+                <span style="font-size:12px;color:var(--text-muted)">Audit log</span>
+              </div>
+              <div class="card-body" id="activity-feed" style="padding:0 24px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALUMNI DATA PAGE -->
+        <div class="page" id="page-alumni">
+          <div class="search-bar-row">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔎</span>
+              <input type="text" class="search-input" id="alumni-search" placeholder="Cari nama, NIM, program studi..." oninput="filterAlumni()">
+            </div>
+            <select class="filter-select" id="filter-fakultas" onchange="filterAlumni()">
+              <option value="">Semua Fakultas</option>
+            </select>
+            <select class="filter-select" id="filter-status" onchange="filterAlumni()">
+              <option value="">Semua Status</option>
+              <option value="found">Teridentifikasi</option>
+              <option value="verify">Perlu Verifikasi</option>
+              <option value="missing">Belum Ditemukan</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nama Alumni</th>
+                  <th>NIM</th>
+                  <th>Program Studi</th>
+                  <th>Fakultas</th>
+                  <th>Tahun Lulus</th>
+                  <th>Status</th>
+                  <th>Confidence</th>
+                </tr>
+              </thead>
+              <tbody id="alumni-table-body"></tbody>
+            </table>
+            <div class="pagination">
+              <div class="pagination-info" id="pagination-info"></div>
+              <div class="pagination-btns" id="pagination-btns"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PELACAKAN PAGE -->
+        <div class="page" id="page-pelacakan">
+          <div style="max-width:700px">
+            <div class="card" style="margin-bottom:20px">
+              <div class="card-header">
+                <div class="card-title">🔍 Jalankan Pelacakan Alumni</div>
+              </div>
+              <div class="card-body">
+                <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;line-height:1.6">
+                  Masukkan nama atau NIM alumni, lalu sistem akan men-generate query pencarian berdasarkan pseudocode algoritma pelacakan. Data kontak diisi secara manual oleh admin setelah ditemukan.
+                </p>
+
+                <div class="form-group">
+                  <label class="form-label">Nama / NIM Alumni</label>
+                  <input type="text" id="track-input" class="form-input" placeholder="Contoh: Siti Hafsa atau 201710020311026">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Sumber Pencarian</label>
+                  <div class="source-matrix" id="source-checkboxes">
+                    <div class="source-item active" onclick="toggleSource(this)" data-src="LinkedIn">
+                      <span class="source-item-icon">💼</span>
+                      <div><div class="source-item-name">LinkedIn</div><div class="source-item-desc">Profil profesional</div></div>
+                    </div>
+                    <div class="source-item active" onclick="toggleSource(this)" data-src="Google Scholar">
+                      <span class="source-item-icon">📚</span>
+                      <div><div class="source-item-name">Google Scholar</div><div class="source-item-desc">Publikasi akademik</div></div>
+                    </div>
+                    <div class="source-item" onclick="toggleSource(this)" data-src="ORCID">
+                      <span class="source-item-icon">🔬</span>
+                      <div><div class="source-item-name">ORCID</div><div class="source-item-desc">ID peneliti</div></div>
+                    </div>
+                    <div class="source-item" onclick="toggleSource(this)" data-src="GitHub">
+                      <span class="source-item-icon">💻</span>
+                      <div><div class="source-item-name">GitHub</div><div class="source-item-desc">Developer/programmer</div></div>
+                    </div>
+                    <div class="source-item" onclick="toggleSource(this)" data-src="Instagram">
+                      <span class="source-item-icon">📸</span>
+                      <div><div class="source-item-name">Instagram</div><div class="source-item-desc">Sosial media</div></div>
+                    </div>
+                    <div class="source-item" onclick="toggleSource(this)" data-src="PDDIKTI">
+                      <span class="source-item-icon">🏛️</span>
+                      <div><div class="source-item-name">PDDIKTI</div><div class="source-item-desc">Data Dikti resmi</div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn-sm btn-gold" style="width:100%;padding:12px;font-size:14px" onclick="runTracking()">
+                  ⚡ Generate Query & Jalankan Pelacakan
+                </button>
+              </div>
+            </div>
+
+            <div id="tracking-result" style="display:none">
+              <div class="card" style="margin-bottom:20px">
+                <div class="card-header">
+                  <div class="card-title">📋 Query yang Digenerate</div>
+                </div>
+                <div class="card-body" id="generated-queries"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">📊 Scoring & Disambiguasi</div>
+                </div>
+                <div class="card-body" id="scoring-result"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUERY GENERATOR PAGE -->
+        <div class="page" id="page-query">
+          <div class="query-card">
+            <div class="query-label">Contoh Query Template</div>
+            <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">Query yang dihasilkan sistem berdasarkan algoritma Generate_Query() dari pseudocode Daily Project 2</p>
+            <div id="query-templates"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Prioritas Sumber berdasarkan Bidang</div>
+            </div>
+            <div class="card-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+                <div>
+                  <div style="font-size:12px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">🎓 Bidang Akademik</div>
+                  <div id="priority-akademik"></div>
+                </div>
+                <div>
+                  <div style="font-size:12px;font-weight:600;color:var(--navy);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">💼 Bidang Non-Akademik</div>
+                  <div id="priority-nonakademik"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AUDIT PAGE -->
+        <div class="page" id="page-audit">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📋 Jejak Audit Sistem</div>
+              <span style="font-size:12px;color:var(--text-muted)" id="audit-count"></span>
+            </div>
+            <div class="card-body" id="audit-log-list" style="padding:0 24px"></div>
+          </div>
+        </div>
+
+        <!-- STATISTIK PAGE -->
+        <div class="page" id="page-statistik">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header"><div class="stat-icon" style="background:#eff6ff">🏫</div></div>
+              <div class="stat-value" id="stat2-fak">17</div>
+              <div class="stat-label">Jumlah Fakultas</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header"><div class="stat-icon" style="background:#d1fae5">📖</div></div>
+              <div class="stat-value">106</div>
+              <div class="stat-label">Program Studi</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header"><div class="stat-icon" style="background:#fef3c7">📅</div></div>
+              <div class="stat-value">1986–2025</div>
+              <div class="stat-label">Rentang Tahun Data</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-header"><div class="stat-icon" style="background:#f3f4f6">🔗</div></div>
+              <div class="stat-value" id="stat2-linked">0</div>
+              <div class="stat-label">Data Kontak Tersedia</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Distribusi Alumni per Fakultas</div></div>
+            <div class="card-body" id="stat-faculty-full"></div>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </main>
+  </div>
+</div>
+
+<!-- ALUMNI DETAIL MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="alumni-modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-name" id="modal-name">–</div>
+        <div class="modal-nim" id="modal-nim">NIM: –</div>
+      </div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section-title">Data Akademik</div>
+      <div class="info-grid" id="modal-academic"></div>
+
+      <div class="modal-section-title">Confidence Score</div>
+      <div class="confidence-display" id="modal-confidence"></div>
+
+      <div class="modal-section-title">Data Kontak & Lokasi</div>
+      <div id="modal-contact-fields"></div>
+
+      <div class="modal-section-title">Sumber Bukti</div>
+      <div id="modal-sources" style="margin-bottom:8px"></div>
+
+      <div class="modal-section-title">Riwayat Perubahan</div>
+      <div id="modal-history"></div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-outline" onclick="closeModalDirect()">Tutup</button>
+      <button class="btn-sm btn-gold" id="modal-save-btn" onclick="saveModalData()">💾 Simpan Data</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════
+// DATA & STATE
+// ═══════════════════════════════════════
+
+const ACCOUNTS = {
+  'admin.umm': { password: 'sipalum2025', name: 'Admin UMM', role: 'Operator Alumni' },
+  'operator': { password: 'umm123', name: 'Operator', role: 'Staff Alumni' }
+};
+
+const FACULTY_STATS = {
+  'Keguruan dan Ilmu Pendidikan': 40115,
+  'Teknik': 17617,
+  'Ilmu Sosial dan Ilmu Politik': 14374,
+  'Ekonomi dan Bisnis': 12089,
+  'Ekonomi': 10715,
+  'Ilmu Kesehatan': 10144,
+  'Psikologi': 7229,
+  'Pertanian dan Peternakan': 6487,
+  'Pascasarjana': 6413,
+  'Hukum': 5643,
+  'Kedokteran': 4972,
+  'Agama Islam': 3285,
+  'Pertanian': 1916,
+  'Peternakan - Perikanan': 775,
+  'Vokasi': 514,
+  'Peternakan': 4
+};
+
+// Seed alumni from real Excel data + mock contact info
+const SEED_ALUMNI = [
+  {nim:'201710020311026',nama:'Siti Hafsa',prodi:'Hukum Keluarga Islam',fakultas:'Agama Islam',tahunMasuk:2017,tanggalLulus:'19 Oktober 2021'},
+  {nim:'201910010311072',nama:'Ahmad Firdaus Al Amien',prodi:'Pendidikan Agama Islam',fakultas:'Agama Islam',tahunMasuk:2019,tanggalLulus:'18 November 2023'},
+  {nim:'201210010311061',nama:'Ahmad Miftachul Hudayah',prodi:'Pendidikan Agama Islam',fakultas:'Agama Islam',tahunMasuk:2012,tanggalLulus:'16 Maret 2019'},
+  {nim:'08610213',nama:'Stevianie Dewi',prodi:'Manajemen',fakultas:'Ekonomi',tahunMasuk:2008,tanggalLulus:'5 Mei 2012'},
+  {nim:'201310170311356',nama:'Hamdyah Candra Laila',prodi:'Akuntansi',fakultas:'Ekonomi dan Bisnis',tahunMasuk:2013,tanggalLulus:'1 Februari 2017'},
+  {nim:'201410160311496',nama:'Idam Ahmad Setiawan',prodi:'Manajemen',fakultas:'Ekonomi dan Bisnis',tahunMasuk:2014,tanggalLulus:'14 April 2020'},
+  {nim:'201210170311433',nama:'Aditama Dirgantara',prodi:'Akuntansi',fakultas:'Ekonomi dan Bisnis',tahunMasuk:2012,tanggalLulus:'30 Juli 2018'},
+  {nim:'06630006',nama:'Siti Nurkholifah',prodi:'Ekonomi Pembangunan',fakultas:'Ekonomi',tahunMasuk:2006,tanggalLulus:'22 Mei 2010'},
+  {nim:'201610150311278',nama:'Reza Pahlevi Santoso',prodi:'Manajemen',fakultas:'Ekonomi dan Bisnis',tahunMasuk:2016,tanggalLulus:'12 Agustus 2020'},
+  {nim:'201510170311044',nama:'Annisa Putri Rahayu',prodi:'Akuntansi',fakultas:'Ekonomi dan Bisnis',tahunMasuk:2015,tanggalLulus:'5 Maret 2019'},
+  {nim:'04810034',nama:'Dewi Kartika Sari',prodi:'Ilmu Hukum',fakultas:'Hukum',tahunMasuk:2004,tanggalLulus:'14 Agustus 2008'},
+  {nim:'201310200311182',nama:'Muhammad Rizal Hakim',prodi:'Ilmu Hukum',fakultas:'Hukum',tahunMasuk:2013,tanggalLulus:'20 September 2017'},
+  {nim:'201710200311456',nama:'Farah Diba Anggraini',prodi:'Ilmu Hukum',fakultas:'Hukum',tahunMasuk:2017,tanggalLulus:'8 Februari 2021'},
+  {nim:'201610200311328',nama:'Bagas Surya Pratama',prodi:'Ilmu Hukum',fakultas:'Hukum',tahunMasuk:2016,tanggalLulus:'15 Juli 2020'},
+  {nim:'201510200311218',nama:'Nadia Fitria Rahma',prodi:'Ilmu Hukum',fakultas:'Hukum',tahunMasuk:2015,tanggalLulus:'30 Oktober 2018'},
+  {nim:'201410200311064',nama:'Eko Prasetyo Nugroho',prodi:'Ilmu Hukum',fakultas:'Hukum',tahunMasuk:2014,tanggalLulus:'25 April 2018'},
+  {nim:'201710250311022',nama:'Tania Mirabel Kusuma',prodi:'Komunikasi',fakultas:'Ilmu Sosial dan Ilmu Politik',tahunMasuk:2017,tanggalLulus:'10 November 2021'},
+  {nim:'201610240311148',nama:'Gilang Ramadhan Putra',prodi:'Ilmu Pemerintahan',fakultas:'Ilmu Sosial dan Ilmu Politik',tahunMasuk:2016,tanggalLulus:'22 Agustus 2020'},
+  {nim:'201810250311076',nama:'Clarissa Valentina',prodi:'Komunikasi',fakultas:'Ilmu Sosial dan Ilmu Politik',tahunMasuk:2018,tanggalLulus:'3 Maret 2022'},
+  {nim:'201510250311310',nama:'Dimas Aditya Wicaksono',prodi:'Komunikasi',fakultas:'Ilmu Sosial dan Ilmu Politik',tahunMasuk:2015,tanggalLulus:'18 Januari 2019'},
+  {nim:'201710330311282',nama:'Intan Permatasari',prodi:'Pendidikan Matematika',fakultas:'Keguruan dan Ilmu Pendidikan',tahunMasuk:2017,tanggalLulus:'7 Mei 2021'},
+  {nim:'201610310311408',nama:'Arif Budiman Saputra',prodi:'Pendidikan Bahasa Indonesia',fakultas:'Keguruan dan Ilmu Pendidikan',tahunMasuk:2016,tanggalLulus:'12 Oktober 2020'},
+  {nim:'201810350311044',nama:'Rizky Amelia Putri',prodi:'PGSD',fakultas:'Keguruan dan Ilmu Pendidikan',tahunMasuk:2018,tanggalLulus:'4 Agustus 2022'},
+  {nim:'201510320311156',nama:'Wahyu Setiawan',prodi:'Pendidikan Biologi',fakultas:'Keguruan dan Ilmu Pendidikan',tahunMasuk:2015,tanggalLulus:'20 Juli 2019'},
+  {nim:'201710340311222',nama:'Siska Dewi Lestari',prodi:'Pendidikan Bahasa Inggris',fakultas:'Keguruan dan Ilmu Pendidikan',tahunMasuk:2017,tanggalLulus:'14 Maret 2021'},
+  {nim:'201610360311316',nama:'Hendra Wijaya',prodi:'Pendidikan IPS',fakultas:'Keguruan dan Ilmu Pendidikan',tahunMasuk:2016,tanggalLulus:'9 September 2020'},
+  {nim:'201710460311088',nama:'Berliana Oktaviani',prodi:'Teknik Informatika',fakultas:'Teknik',tahunMasuk:2017,tanggalLulus:'25 Februari 2021'},
+  {nim:'201610450311196',nama:'Fachri Maulana Akbar',prodi:'Teknik Sipil',fakultas:'Teknik',tahunMasuk:2016,tanggalLulus:'31 Oktober 2020'},
+  {nim:'201810460311134',nama:'Kevin Nathaniel Surya',prodi:'Teknik Informatika',fakultas:'Teknik',tahunMasuk:2018,tanggalLulus:'17 Juni 2022'},
+  {nim:'201510470311268',nama:'Putri Rahayu Ningsih',prodi:'Teknik Mesin',fakultas:'Teknik',tahunMasuk:2015,tanggalLulus:'6 Desember 2019'},
+  {nim:'201710480311344',nama:'Alfian Dwi Prasetya',prodi:'Teknik Elektro',fakultas:'Teknik',tahunMasuk:2017,tanggalLulus:'20 April 2021'},
+  {nim:'201610460311422',nama:'Shinta Maharani',prodi:'Teknik Informatika',fakultas:'Teknik',tahunMasuk:2016,tanggalLulus:'15 Agustus 2020'},
+  {nim:'201710580311062',nama:'Dani Setiabudi',prodi:'Psikologi',fakultas:'Psikologi',tahunMasuk:2017,tanggalLulus:'9 Oktober 2021'},
+  {nim:'201610580311188',nama:'Mega Claudia Dewanti',prodi:'Psikologi',fakultas:'Psikologi',tahunMasuk:2016,tanggalLulus:'3 Juli 2020'},
+  {nim:'201810580311026',nama:'Rina Safitri Utami',prodi:'Psikologi',fakultas:'Psikologi',tahunMasuk:2018,tanggalLulus:'28 Januari 2022'},
+  {nim:'201510580311314',nama:'Taufiq Hidayat',prodi:'Psikologi',fakultas:'Psikologi',tahunMasuk:2015,tanggalLulus:'14 November 2019'},
+  {nim:'201710680311218',nama:'Nisa Aulia Rahmawati',prodi:'Farmasi',fakultas:'Ilmu Kesehatan',tahunMasuk:2017,tanggalLulus:'12 Maret 2021'},
+  {nim:'201610650311366',nama:'Bayu Adi Nugroho',prodi:'Keperawatan',fakultas:'Ilmu Kesehatan',tahunMasuk:2016,tanggalLulus:'25 September 2020'},
+  {nim:'201810670311044',nama:'Ayu Permata Dewi',prodi:'Fisioterapi',fakultas:'Ilmu Kesehatan',tahunMasuk:2018,tanggalLulus:'11 Juli 2022'},
+  {nim:'201510680311282',nama:'Imam Fauzi',prodi:'Farmasi',fakultas:'Ilmu Kesehatan',tahunMasuk:2015,tanggalLulus:'8 April 2019'},
+  {nim:'201710750311108',nama:'Anastasia Clara',prodi:'Kedokteran',fakultas:'Kedokteran',tahunMasuk:2017,tanggalLulus:'30 Agustus 2023'},
+  {nim:'201610750311234',nama:'Faris Al-Ghifari',prodi:'Kedokteran',fakultas:'Kedokteran',tahunMasuk:2016,tanggalLulus:'14 Desember 2022'},
+  {nim:'201810750311062',nama:'Cantika Amalia Putri',prodi:'Kedokteran',fakultas:'Kedokteran',tahunMasuk:2018,tanggalLulus:'20 Oktober 2024'},
+];
+
+// Mock contact data for some alumni
+const MOCK_CONTACTS = {
+  '201710460311088': { linkedin:'linkedin.com/in/berliana-oktaviani', email:'berliana.okt@gmail.com', hp:'081234567890', tempat_kerja:'PT Gojek Indonesia', alamat_kerja:'Jakarta Selatan', posisi:'Software Engineer', jenis:'Swasta', ig:'@berliana.dev' },
+  '201610460311196': { linkedin:'linkedin.com/in/fachri-maulana', email:'fachrimaulana@yahoo.com', hp:'082345678901', tempat_kerja:'PT Waskita Karya', alamat_kerja:'Surabaya', posisi:'Site Engineer', jenis:'Swasta', ig:'@fachricivil' },
+  '201810460311134': { linkedin:'linkedin.com/in/kevin-nathaniel', email:'kevinnathaniels@gmail.com', hp:'083456789012', tempat_kerja:'Tokopedia', alamat_kerja:'Jakarta Pusat', posisi:'Backend Developer', jenis:'Swasta', ig:'@kevtech' },
+  '201710250311022': { linkedin:'linkedin.com/in/tania-mirabel', email:'tania.mirabel@gmail.com', hp:'085678901234', tempat_kerja:'Metro TV', alamat_kerja:'Jakarta Barat', posisi:'Reporter', jenis:'Swasta', ig:'@taniamirabel_' },
+  '201610580311188': { linkedin:'linkedin.com/in/mega-claudia', email:'megaclaudia@outlook.com', hp:'087890123456', tempat_kerja:'RSUD Kota Malang', alamat_kerja:'Malang', posisi:'Psikolog Klinis', jenis:'PNS', ig:'@megadewanti' },
+};
+
+// App state
+let currentAlumni = [];
+let filteredAlumni = [];
+let currentPage = 1;
+const PER_PAGE = 15;
+let currentModalNim = null;
+let auditLog = [];
+let contactData = {};
+
+// ═══════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════
+function doLogin() {
+  const u = document.getElementById('login-username').value.trim();
+  const p = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+
+  if (ACCOUNTS[u] && ACCOUNTS[u].password === p) {
+    err.style.display = 'none';
+    const acc = ACCOUNTS[u];
+    document.getElementById('user-name-display').textContent = acc.name;
+    document.getElementById('user-avatar').textContent = acc.name[0].toUpperCase();
+    sessionStorage.setItem('loggedIn', 'true');
+    sessionStorage.setItem('userName', acc.name);
+
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+
+    initApp();
+  } else {
+    err.style.display = 'block';
+  }
+}
+
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+function doLogout() {
+  sessionStorage.clear();
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-page').style.display = 'flex';
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+function initApp() {
+  // Load alumni with random status/confidence
+  currentAlumni = SEED_ALUMNI.map(a => {
+    const hasContact = !!MOCK_CONTACTS[a.nim];
+    const rand = Math.random();
+    let status, confidence;
+
+    if (hasContact) {
+      status = 'found';
+      confidence = 75 + Math.floor(Math.random() * 25);
+    } else if (rand < 0.3) {
+      status = 'verify';
+      confidence = 40 + Math.floor(Math.random() * 35);
+    } else {
+      status = 'missing';
+      confidence = Math.floor(Math.random() * 30);
+    }
+
+    return { ...a, status, confidence };
+  });
+
+  // Load contact data
+  contactData = JSON.parse(JSON.stringify(MOCK_CONTACTS));
+
+  // Build audit log
+  auditLog = [
+    { time: '2025-03-07 09:14', action: 'Login', detail: 'Admin UMM masuk ke sistem', type: 'info' },
+    { time: '2025-03-06 15:22', action: 'Update Data', detail: 'Kontak Berliana Oktaviani diperbarui', type: 'update' },
+    { time: '2025-03-06 14:08', action: 'Pelacakan', detail: 'Query dijalankan untuk 5 alumni Teknik Informatika', type: 'track' },
+    { time: '2025-03-05 11:30', action: 'Verifikasi', detail: 'Fachri Maulana Akbar — status: Teridentifikasi', type: 'verify' },
+    { time: '2025-03-05 10:15', action: 'Import', detail: 'Data alumni 2024 diimpor (1.240 records)', type: 'import' },
+    { time: '2025-03-04 16:45', action: 'Update Data', detail: 'Kevin Nathaniel Surya — posisi diperbarui', type: 'update' },
+    { time: '2025-03-03 13:20', action: 'Pelacakan', detail: 'Query dijalankan untuk Tania Mirabel Kusuma', type: 'track' },
+    { time: '2025-03-02 09:00', action: 'Import', detail: 'Data alumni 2023 diimpor (2.156 records)', type: 'import' },
+  ];
+
+  filterAlumni();
+  populateFacultyFilter();
+  renderDashboard();
+  renderAuditLog();
+  renderQueryPage();
+  renderStatistikPage();
+  updateDashboardStats();
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+const PAGE_META = {
+  dashboard: { title: 'Dashboard', sub: 'Selamat datang di SIPALUM — Sistem Pelacakan Alumni UMM' },
+  alumni: { title: 'Data Alumni', sub: 'Kelola dan verifikasi data alumni UMM' },
+  pelacakan: { title: 'Jalankan Pelacakan', sub: 'Generate query dan lacak alumni dari sumber publik' },
+  query: { title: 'Generator Query', sub: 'Template query berdasarkan algoritma pseudocode DP2' },
+  audit: { title: 'Jejak Audit', sub: 'Riwayat aktivitas dan perubahan data sistem' },
+  statistik: { title: 'Statistik Alumni', sub: 'Distribusi dan analisis data alumni UMM' },
+};
+
+function showPage(pageId, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  if (el) el.classList.add('active');
+  const meta = PAGE_META[pageId] || {};
+  document.getElementById('topbar-title').textContent = meta.title || pageId;
+  document.getElementById('topbar-sub').textContent = meta.sub || '';
+}
+
+// ═══════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════
+function updateDashboardStats() {
+  const found = currentAlumni.filter(a => a.status === 'found').length;
+  const verify = currentAlumni.filter(a => a.status === 'verify').length;
+  const missing = currentAlumni.filter(a => a.status === 'missing').length;
+  const total = currentAlumni.length;
+
+  document.getElementById('stat-found').textContent = found;
+  document.getElementById('stat-verify').textContent = verify;
+  document.getElementById('stat-missing').textContent = missing;
+  document.getElementById('stat-found-pct').textContent = Math.round(found/total*100) + '%';
+  document.getElementById('stat-verify-pct').textContent = Math.round(verify/total*100) + '%';
+  document.getElementById('stat-missing-pct').textContent = Math.round(missing/total*100) + '%';
+
+  const linked = Object.keys(contactData).length;
+  document.getElementById('stat2-linked').textContent = linked;
+}
+
+function renderDashboard() {
+  // Faculty bars
+  const top6 = Object.entries(FACULTY_STATS).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const max = top6[0][1];
+  document.getElementById('faculty-chart').innerHTML = top6.map(([name, count]) => `
+    <div class="faculty-bar-item">
+      <div class="faculty-bar-header">
+        <span>${name}</span>
+        <span style="color:var(--text-muted)">${count.toLocaleString()}</span>
+      </div>
+      <div class="faculty-bar-track">
+        <div class="faculty-bar-fill" style="width:${Math.round(count/max*100)}%"></div>
+      </div>
+    </div>
+  `).join('');
+
+  // Activity feed
+  const colors = { info:'#3b82f6', update:'#10b981', track:'#f59e0b', verify:'#8b5cf6', import:'#6366f1' };
+  document.getElementById('activity-feed').innerHTML = auditLog.slice(0,6).map(a => `
+    <div class="activity-item">
+      <div class="activity-dot" style="background:${colors[a.type]||'#9ca3af'}"></div>
+      <div>
+        <div class="activity-text"><strong>${a.action}</strong> — ${a.detail}</div>
+        <div class="activity-time">${a.time}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════
+// ALUMNI TABLE
+// ═══════════════════════════════════════
+function populateFacultyFilter() {
+  const faculties = [...new Set(currentAlumni.map(a => a.fakultas))].sort();
+  const sel = document.getElementById('filter-fakultas');
+  faculties.forEach(f => {
+    const opt = document.createElement('option');
+    opt.value = f; opt.textContent = f;
+    sel.appendChild(opt);
+  });
+}
+
+function filterAlumni() {
+  const q = (document.getElementById('alumni-search').value || '').toLowerCase();
+  const fak = document.getElementById('filter-fakultas').value;
+  const status = document.getElementById('filter-status').value;
+
+  filteredAlumni = currentAlumni.filter(a => {
+    const matchQ = !q || a.nama.toLowerCase().includes(q) || a.nim.includes(q) || a.prodi.toLowerCase().includes(q);
+    const matchF = !fak || a.fakultas === fak;
+    const matchS = !status || a.status === status;
+    return matchQ && matchF && matchS;
+  });
+
+  currentPage = 1;
+  renderTable();
+}
+
+function renderTable() {
+  const start = (currentPage - 1) * PER_PAGE;
+  const pageData = filteredAlumni.slice(start, start + PER_PAGE);
+  const tbody = document.getElementById('alumni-table-body');
+
+  if (filteredAlumni.length === 0) {
+    tbody.innerHTML = `<tr class="no-results"><td colspan="7">Tidak ada data yang cocok dengan filter</td></tr>`;
+    document.getElementById('pagination-info').textContent = '';
+    document.getElementById('pagination-btns').innerHTML = '';
+    return;
+  }
+
+  tbody.innerHTML = pageData.map(a => {
+    const statusLabel = { found: 'Teridentifikasi', verify: 'Perlu Verifikasi', missing: 'Belum Ditemukan' }[a.status];
+    const statusClass = { found: 'status-found', verify: 'status-verify', missing: 'status-missing' }[a.status];
+    const confClass = a.confidence >= 80 ? 'conf-high' : a.confidence >= 50 ? 'conf-mid' : 'conf-low';
+    const tahunLulus = a.tanggalLulus.split(' ').pop();
+
+    return `<tr onclick="openModal('${a.nim}')">
+      <td><strong>${a.nama}</strong></td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted)">${a.nim}</td>
+      <td>${a.prodi}</td>
+      <td>${a.fakultas}</td>
+      <td>${tahunLulus}</td>
+      <td><span class="status-badge ${statusClass}"><span class="status-dot"></span>${statusLabel}</span></td>
+      <td>
+        <div class="confidence-bar">
+          <div class="conf-track"><div class="conf-fill ${confClass}" style="width:${a.confidence}%"></div></div>
+          <span class="conf-text">${a.confidence}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  // Pagination
+  const totalPages = Math.ceil(filteredAlumni.length / PER_PAGE);
+  document.getElementById('pagination-info').textContent = `Menampilkan ${start+1}–${Math.min(start+PER_PAGE, filteredAlumni.length)} dari ${filteredAlumni.length} alumni`;
+
+  let btns = '';
+  btns += `<button class="pg-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+  const pages = getPageRange(currentPage, totalPages);
+  pages.forEach(p => {
+    if (p === '...') btns += `<button class="pg-btn" disabled>…</button>`;
+    else btns += `<button class="pg-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+  });
+  btns += `<button class="pg-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>›</button>`;
+  document.getElementById('pagination-btns').innerHTML = btns;
+}
+
+function getPageRange(cur, total) {
+  if (total <= 7) return Array.from({length:total},(_,i)=>i+1);
+  if (cur <= 4) return [1,2,3,4,5,'...',total];
+  if (cur >= total-3) return [1,'...',total-4,total-3,total-2,total-1,total];
+  return [1,'...',cur-1,cur,cur+1,'...',total];
+}
+
+function goPage(p) {
+  const total = Math.ceil(filteredAlumni.length / PER_PAGE);
+  if (p < 1 || p > total) return;
+  currentPage = p;
+  renderTable();
+}
+
+// ═══════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════
+function openModal(nim) {
+  const a = currentAlumni.find(x => x.nim === nim);
+  if (!a) return;
+  currentModalNim = nim;
+
+  document.getElementById('modal-name').textContent = a.nama;
+  document.getElementById('modal-nim').textContent = 'NIM: ' + a.nim;
+
+  // Academic info
+  document.getElementById('modal-academic').innerHTML = `
+    <div class="info-item"><label>Fakultas</label><span>${a.fakultas}</span></div>
+    <div class="info-item"><label>Program Studi</label><span>${a.prodi}</span></div>
+    <div class="info-item"><label>Tahun Masuk</label><span>${a.tahunMasuk}</span></div>
+    <div class="info-item"><label>Tanggal Lulus</label><span>${a.tanggalLulus}</span></div>
+  `;
+
+  // Confidence
+  const confClass = a.confidence >= 80 ? '#10b981' : a.confidence >= 50 ? '#f59e0b' : '#d1d5db';
+  const statusLabel = { found: 'Teridentifikasi dari sumber publik', verify: 'Perlu Verifikasi Manual', missing: 'Belum Ditemukan di Sumber Publik' }[a.status];
+  document.getElementById('modal-confidence').innerHTML = `
+    <div class="conf-circle" style="background:${confClass}20;color:${confClass};border:2px solid ${confClass}40">${a.confidence}%</div>
+    <div>
+      <div style="font-size:14px;font-weight:600;color:var(--navy)">${statusLabel}</div>
+      <div class="conf-detail">Score dihitung dari: kecocokan nama (30%) + afiliasi (25%) + timeline (25%) + bidang (20%)</div>
+    </div>
+  `;
+
+  // Contact fields
+  const c = contactData[nim] || {};
+  const fields = [
+    { key:'linkedin', label:'LinkedIn', icon:'💼', bg:'#eff6ff', placeholder:'linkedin.com/in/...' },
+    { key:'ig', label:'Instagram', icon:'📸', bg:'#fdf4ff', placeholder:'@username' },
+    { key:'email', label:'Email', icon:'📧', bg:'#f0fdf4', placeholder:'email@domain.com' },
+    { key:'hp', label:'No. HP', icon:'📱', bg:'#fff7ed', placeholder:'08xxxxxxxxxx' },
+    { key:'tempat_kerja', label:'Tempat Bekerja', icon:'🏢', bg:'#faf5ff', placeholder:'Nama perusahaan/instansi' },
+    { key:'alamat_kerja', label:'Alamat Kerja', icon:'📍', bg:'#f0fdf4', placeholder:'Kota, Provinsi' },
+    { key:'posisi', label:'Posisi/Jabatan', icon:'👔', bg:'#eff6ff', placeholder:'Contoh: Software Engineer' },
+    { key:'jenis', label:'Status Kerja', icon:'📋', bg:'#fff7ed', placeholder:'PNS / Swasta / Wirausaha' },
+  ];
+
+  document.getElementById('modal-contact-fields').innerHTML = fields.map(f => `
+    <div class="contact-field">
+      <div class="contact-icon" style="background:${f.bg}">${f.icon}</div>
+      <div style="flex:1">
+        <div class="contact-label">${f.label}</div>
+        <input class="edit-input" data-key="${f.key}" value="${c[f.key]||''}" placeholder="${f.placeholder}">
+      </div>
+    </div>
+  `).join('');
+
+  // Sources
+  const sources = ['LinkedIn', 'Google Scholar', 'ORCID', 'GitHub', 'Instagram', 'PDDIKTI', 'Website Perusahaan'];
+  const activeCount = a.status === 'found' ? 3 : a.status === 'verify' ? 1 : 0;
+  document.getElementById('modal-sources').innerHTML = sources.map((s,i) => `
+    <span class="source-tag ${i < activeCount ? 'checked' : ''}">${i < activeCount ? '✓' : '○'} ${s}</span>
+  `).join('');
+
+  // History
+  const history = a.status !== 'missing' ? [
+    { time: '2025-03-06', note: `Status diperbarui: ${a.status === 'found' ? 'Teridentifikasi' : 'Perlu Verifikasi'}` },
+    { time: '2025-03-05', note: 'Query pencarian dijalankan' },
+  ] : [{ time: '2025-03-05', note: 'Query pencarian dijalankan — tidak ditemukan di sumber publik' }];
+
+  document.getElementById('modal-history').innerHTML = history.map(h => `
+    <div class="audit-item">
+      <div class="audit-time">${h.time}</div>
+      <div>${h.note}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  currentModalNim = null;
+}
+
+function saveModalData() {
+  if (!currentModalNim) return;
+  const inputs = document.querySelectorAll('#modal-contact-fields .edit-input');
+  const data = {};
+  let hasData = false;
+  inputs.forEach(inp => {
+    if (inp.value.trim()) { data[inp.dataset.key] = inp.value.trim(); hasData = true; }
+  });
+
+  if (hasData) {
+    contactData[currentModalNim] = data;
+    const alumni = currentAlumni.find(a => a.nim === currentModalNim);
+    if (alumni) {
+      alumni.status = 'found';
+      alumni.confidence = Math.max(alumni.confidence, 75);
+    }
+
+    addAudit('update', `Kontak ${currentAlumni.find(a=>a.nim===currentModalNim)?.nama || ''} diperbarui`);
+    updateDashboardStats();
+    filterAlumni();
+  }
+
+  showToast('✅ Data berhasil disimpan');
+  closeModalDirect();
+}
+
+// ═══════════════════════════════════════
+// TRACKING / QUERY
+// ═══════════════════════════════════════
+function toggleSource(el) {
+  el.classList.toggle('active');
+}
+
+function runTracking() {
+  const input = document.getElementById('track-input').value.trim();
+  if (!input) { showToast('⚠️ Masukkan nama atau NIM alumni'); return; }
+
+  const sources = [...document.querySelectorAll('.source-item.active')].map(el => el.dataset.src);
+  if (sources.length === 0) { showToast('⚠️ Pilih minimal 1 sumber'); return; }
+
+  // Find alumni if exists
+  const found = currentAlumni.find(a => a.nama.toLowerCase().includes(input.toLowerCase()) || a.nim.includes(input));
+  const targetName = found ? found.nama : input;
+  const prodi = found ? found.prodi : 'Informatika';
+  const tahun = found ? found.tanggalLulus.split(' ').pop() : '2021';
+
+  // Generate queries
+  const queries = [
+    `"${targetName}" "Universitas Muhammadiyah Malang"`,
+    `"${targetName}" "${prodi}" UMM`,
+    `"${targetName}" site:scholar.google.com`,
+    `"${targetName}" ORCID`,
+    `"${targetName}" LinkedIn Malang`,
+    `"${targetName}" "${tahun}" alumni UMM`,
+  ];
+
+  document.getElementById('generated-queries').innerHTML = `
+    <div class="query-label" style="margin-bottom:10px">Query untuk: <strong>${targetName}</strong></div>
+    ${queries.map((q,i) => `<div class="query-chip" title="Copy query">Q${i+1}: ${q}</div>`).join('')}
+    <p style="font-size:12px;color:var(--text-muted);margin-top:12px">💡 Klik query untuk menyalin. Query disimpan di audit log.</p>
+  `;
+
+  // Scoring simulation
+  const score = found ? found.confidence : Math.floor(Math.random() * 60) + 20;
+  const status = score >= 80 ? '✅ Kemungkinan Kuat' : score >= 50 ? '⚠️ Perlu Verifikasi' : '❌ Tidak Cocok';
+  const scoreColor = score >= 80 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444';
+
+  document.getElementById('scoring-result').innerHTML = `
+    <div class="confidence-display">
+      <div class="conf-circle" style="background:${scoreColor}20;color:${scoreColor};border:2px solid ${scoreColor}40;width:56px;height:56px;font-size:16px">${score}%</div>
+      <div>
+        <div style="font-size:15px;font-weight:600;color:var(--navy)">${status}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Ditemukan di ${Math.ceil(sources.length * score / 100)} dari ${sources.length} sumber yang dipilih</div>
+      </div>
+    </div>
+    <div class="score-row">
+      <div class="score-name">Kecocokan Nama</div>
+      <div class="score-weight">×30%</div>
+      <div class="score-bar"><div class="score-fill" style="background:#3b82f6;width:${Math.min(100,score+10)}%"></div></div>
+      <div class="score-val" style="color:#3b82f6">${Math.min(100,score+10)}</div>
+    </div>
+    <div class="score-row">
+      <div class="score-name">Kecocokan Afiliasi (UMM/${prodi})</div>
+      <div class="score-weight">×25%</div>
+      <div class="score-bar"><div class="score-fill" style="background:#10b981;width:${score}%"></div></div>
+      <div class="score-val" style="color:#10b981">${score}</div>
+    </div>
+    <div class="score-row">
+      <div class="score-name">Kecocokan Timeline (${tahun})</div>
+      <div class="score-weight">×25%</div>
+      <div class="score-bar"><div class="score-fill" style="background:#f59e0b;width:${Math.max(0,score-15)}%"></div></div>
+      <div class="score-val" style="color:#f59e0b">${Math.max(0,score-15)}</div>
+    </div>
+    <div class="score-row">
+      <div class="score-name">Kecocokan Bidang</div>
+      <div class="score-weight">×20%</div>
+      <div class="score-bar"><div class="score-fill" style="background:#8b5cf6;width:${Math.max(0,score-5)}%"></div></div>
+      <div class="score-val" style="color:#8b5cf6">${Math.max(0,score-5)}</div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:var(--cream);border-radius:8px;font-size:13px;color:var(--text-muted)">
+      Cross-validation: ${score >= 60 ? `Ditemukan konsisten di ≥2 sumber → <strong style="color:#10b981">confidence +20%</strong>` : `Hanya ditemukan di 1 sumber atau terdapat konflik data → <strong style="color:#f59e0b">tandai Review Manual</strong>`}
+    </div>
+  `;
+
+  document.getElementById('tracking-result').style.display = 'block';
+  addAudit('track', `Query pelacakan dijalankan untuk "${targetName}" (${sources.length} sumber)`);
+  showToast(`⚡ Query digenerate untuk ${targetName}`);
+}
+
+// ═══════════════════════════════════════
+// QUERY TEMPLATE PAGE
+// ═══════════════════════════════════════
+function renderQueryPage() {
+  const templates = [
+    '"[Nama Lengkap]" "Universitas Muhammadiyah Malang"',
+    '"[Nama]" "[Program Studi]" UMM',
+    '"[Nama]" site:scholar.google.com',
+    '"[Nama]" ORCID',
+    '"[Nama]" "[Tahun Lulus]" alumni',
+    '"[Nama]" LinkedIn Malang',
+    '"[Nama]" "[Bidang Kerja]" Malang',
+    '"[Nama]" site:github.com',
+  ];
+
+  document.getElementById('query-templates').innerHTML = templates.map(t => `<span class="query-chip">${t}</span>`).join('');
+
+  const akademik = ['1. Google Scholar', '2. ORCID', '3. ResearchGate', '4. LinkedIn', '5. Web Universitas'];
+  const nonakademik = ['1. LinkedIn', '2. Website Perusahaan', '3. GitHub', '4. Instagram', '5. Web Search'];
+
+  document.getElementById('priority-akademik').innerHTML = akademik.map(s => `
+    <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:13px">${s}</div>
+  `).join('');
+  document.getElementById('priority-nonakademik').innerHTML = nonakademik.map(s => `
+    <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:13px">${s}</div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════
+// AUDIT LOG
+// ═══════════════════════════════════════
+function addAudit(type, detail) {
+  const now = new Date();
+  const time = now.toISOString().replace('T',' ').slice(0,16);
+  const actions = { info:'Info', update:'Update Data', track:'Pelacakan', verify:'Verifikasi', import:'Import' };
+  auditLog.unshift({ time, action: actions[type]||type, detail, type });
+  renderAuditLog();
+  renderDashboard(); // refresh activity feed
+}
+
+function renderAuditLog() {
+  const colors = { info:'#3b82f6', update:'#10b981', track:'#f59e0b', verify:'#8b5cf6', import:'#6366f1' };
+  document.getElementById('audit-count').textContent = auditLog.length + ' entri';
+  document.getElementById('audit-log-list').innerHTML = auditLog.map(a => `
+    <div class="audit-item">
+      <div class="audit-time">${a.time}</div>
+      <div style="width:100px;flex-shrink:0">
+        <span style="background:${colors[a.type]||'#9ca3af'}20;color:${colors[a.type]||'#9ca3af'};padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500">${a.action}</span>
+      </div>
+      <div>${a.detail}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════
+// STATISTIK
+// ═══════════════════════════════════════
+function renderStatistikPage() {
+  const sorted = Object.entries(FACULTY_STATS).sort((a,b)=>b[1]-a[1]);
+  const max = sorted[0][1];
+  document.getElementById('stat-faculty-full').innerHTML = sorted.map(([name, count]) => `
+    <div class="faculty-bar-item">
+      <div class="faculty-bar-header">
+        <span>${name}</span>
+        <span style="color:var(--text-muted);font-family:'JetBrains Mono',monospace;font-size:12px">${count.toLocaleString()}</span>
+      </div>
+      <div class="faculty-bar-track" style="height:8px">
+        <div class="faculty-bar-fill" style="width:${Math.round(count/max*100)}%"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Auto-login check
+if (sessionStorage.getItem('loggedIn')) {
+  const name = sessionStorage.getItem('userName') || 'Admin';
+  document.getElementById('user-name-display').textContent = name;
+  document.getElementById('user-avatar').textContent = name[0];
+  document.getElementById('login-page').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  initApp();
+}
+</script>
+</body>
+</html>
