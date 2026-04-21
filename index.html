@@ -1445,11 +1445,291 @@ const SEED_ALUMNI = [
 
 // Mock contact data for some alumni
 const MOCK_CONTACTS = {
-  '201710460311088': { linkedin:'linkedin.com/in/berliana-oktaviani', email:'berliana.okt@gmail.com', hp:'081234567890', tempat_kerja:'PT Gojek Indonesia', alamat_kerja:'Jakarta Selatan', posisi:'Software Engineer', jenis:'Swasta', ig:'@berliana.dev' },
-  '201610460311196': { linkedin:'linkedin.com/in/fachri-maulana', email:'fachrimaulana@yahoo.com', hp:'082345678901', tempat_kerja:'PT Waskita Karya', alamat_kerja:'Surabaya', posisi:'Site Engineer', jenis:'Swasta', ig:'@fachricivil' },
-  '201810460311134': { linkedin:'linkedin.com/in/kevin-nathaniel', email:'kevinnathaniels@gmail.com', hp:'083456789012', tempat_kerja:'Tokopedia', alamat_kerja:'Jakarta Pusat', posisi:'Backend Developer', jenis:'Swasta', ig:'@kevtech' },
-  '201710250311022': { linkedin:'linkedin.com/in/tania-mirabel', email:'tania.mirabel@gmail.com', hp:'085678901234', tempat_kerja:'Metro TV', alamat_kerja:'Jakarta Barat', posisi:'Reporter', jenis:'Swasta', ig:'@taniamirabel_' },
-  '201610580311188': { linkedin:'linkedin.com/in/mega-claudia', email:'megaclaudia@outlook.com', hp:'087890123456', tempat_kerja:'RSUD Kota Malang', alamat_kerja:'Malang', posisi:'Psikolog Klinis', jenis:'PNS', ig:'@megadewanti' },
+  // ── TEKNIK INFORMATIKA ──
+  '201710460311088': {
+    linkedin:'linkedin.com/in/berliana-oktaviani',
+    ig:'@berliana.okt',
+    fb:'facebook.com/berliana.oktaviani',
+    tiktok:'@berlianaokt',
+    email:'berliana.okt@gmail.com',
+    hp:'081234567890',
+    tempat_kerja:'PT Gojek Indonesia',
+    alamat_kerja:'Jl. Kemang Timur No. 25, Jakarta Selatan 12730',
+    posisi:'Software Engineer',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/gojekindonesia | linkedin.com/company/gojek'
+  },
+  '201810460311134': {
+    linkedin:'linkedin.com/in/kevin-nathaniel-surya',
+    ig:'@kevtech.id',
+    fb:'facebook.com/kevinnathaniels',
+    tiktok:'@kevtech',
+    email:'kevinnathaniels@gmail.com',
+    hp:'083456789012',
+    tempat_kerja:'PT Tokopedia (GoTo Group)',
+    alamat_kerja:'Jl. Prof. Dr. Satrio Kav. 11, Tanah Abang, Jakarta Pusat 10350',
+    posisi:'Backend Developer',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/tokopedia | linkedin.com/company/tokopedia'
+  },
+  '201610460311422': {
+    linkedin:'linkedin.com/in/shinta-maharani-dev',
+    ig:'@shintamaharani_',
+    fb:'facebook.com/shinta.maharani.umm',
+    tiktok:'@shintadev',
+    email:'shinta.maharani@gmail.com',
+    hp:'085678123456',
+    tempat_kerja:'PT Telkom Indonesia',
+    alamat_kerja:'Jl. Japati No. 1, Bandung 40133',
+    posisi:'System Analyst',
+    jenis:'BUMN',
+    sosmed_kerja:'instagram.com/telkomindonesia | linkedin.com/company/telkom-indonesia'
+  },
+  // ── TEKNIK SIPIL ──
+  '201610450311196': {
+    linkedin:'linkedin.com/in/fachri-maulana-akbar',
+    ig:'@fachrimaulana.arc',
+    fb:'facebook.com/fachrimaulana.civil',
+    tiktok:'@fachricivil',
+    email:'fachrimaulana@yahoo.com',
+    hp:'082345678901',
+    tempat_kerja:'PT Waskita Karya (Persero) Tbk',
+    alamat_kerja:'Jl. MT. Haryono Kav. 10, Cawang, Jakarta Timur 13340',
+    posisi:'Site Engineer',
+    jenis:'BUMN',
+    sosmed_kerja:'instagram.com/waskitakarya | linkedin.com/company/waskita-karya'
+  },
+  '201510470311268': {
+    linkedin:'linkedin.com/in/putri-rahayu-ningsih',
+    ig:'@putrirahayueng',
+    fb:'facebook.com/putri.rahayu.ningsih',
+    tiktok:'@putriengineering',
+    email:'putri.rahayu.nings@gmail.com',
+    hp:'089012345678',
+    tempat_kerja:'PT Pembangunan Perumahan (PP)',
+    alamat_kerja:'Jl. TB Simatupang No. 57, Jakarta Selatan 12430',
+    posisi:'Structural Engineer',
+    jenis:'BUMN',
+    sosmed_kerja:'instagram.com/pt_pp_persero | linkedin.com/company/ptpp'
+  },
+  // ── KOMUNIKASI ──
+  '201710250311022': {
+    linkedin:'linkedin.com/in/tania-mirabel-kusuma',
+    ig:'@taniamirabel_',
+    fb:'facebook.com/tania.mirabel.kusuma',
+    tiktok:'@taniamirabel',
+    email:'tania.mirabel@gmail.com',
+    hp:'085678901234',
+    tempat_kerja:'Metro TV',
+    alamat_kerja:'Jl. Pilar Mas Raya Kav. 3-4, Kedoya, Jakarta Barat 11520',
+    posisi:'Reporter & Jurnalis',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/metrotvnews | tiktok.com/@metrotvnews'
+  },
+  '201810250311076': {
+    linkedin:'linkedin.com/in/clarissa-valentina',
+    ig:'@clarissaval.comm',
+    fb:'facebook.com/clarissa.valentina.umm',
+    tiktok:'@clarissaval',
+    email:'clarissa.valentina@gmail.com',
+    hp:'087654321098',
+    tempat_kerja:'Kompas Gramedia',
+    alamat_kerja:'Jl. Palmerah Selatan No. 26-28, Jakarta Pusat 10270',
+    posisi:'Content Strategist',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/kompascom | linkedin.com/company/kompas-gramedia'
+  },
+  // ── PSIKOLOGI ──
+  '201610580311188': {
+    linkedin:'linkedin.com/in/mega-claudia-dewanti',
+    ig:'@megadewanti.psi',
+    fb:'facebook.com/mega.claudia.dewanti',
+    tiktok:'@megapsi',
+    email:'megaclaudia@outlook.com',
+    hp:'087890123456',
+    tempat_kerja:'RSUD Dr. Saiful Anwar Malang',
+    alamat_kerja:'Jl. Jaksa Agung Suprapto No. 2, Klojen, Malang 65112',
+    posisi:'Psikolog Klinis',
+    jenis:'PNS',
+    sosmed_kerja:'instagram.com/rsudsaifulanwar | facebook.com/rsudsaifulanwarmalang'
+  },
+  '201810580311026': {
+    linkedin:'linkedin.com/in/rina-safitri-utami',
+    ig:'@rinasafitri.psi',
+    fb:'facebook.com/rina.safitri.utami',
+    tiktok:'@rinapsikolog',
+    email:'rinasafitri.psi@gmail.com',
+    hp:'082109876543',
+    tempat_kerja:'Yayasan Pulih Indonesia',
+    alamat_kerja:'Jl. Teluk Peleng No. 63A, Tomang, Jakarta Barat 11430',
+    posisi:'Psikolog Konselor',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/yayasanpulih | facebook.com/yayasanpulih'
+  },
+  // ── HUKUM ──
+  '201310200311182': {
+    linkedin:'linkedin.com/in/muhammad-rizal-hakim',
+    ig:'@rizalhakim.law',
+    fb:'facebook.com/m.rizal.hakim',
+    tiktok:'@rizallaw',
+    email:'rizalhakim.law@gmail.com',
+    hp:'081567890234',
+    tempat_kerja:'Kejaksaan Negeri Malang',
+    alamat_kerja:'Jl. Ahmad Yani No. 8, Malang 65112',
+    posisi:'Jaksa Fungsional',
+    jenis:'PNS',
+    sosmed_kerja:'instagram.com/kejaksaan_ri | facebook.com/KejaksaanRIOfficial'
+  },
+  '201710200311456': {
+    linkedin:'linkedin.com/in/farah-diba-anggraini',
+    ig:'@farahdiba.adv',
+    fb:'facebook.com/farah.diba.anggraini',
+    tiktok:'@farahdibalaw',
+    email:'farahdiba.adv@gmail.com',
+    hp:'083456781234',
+    tempat_kerja:'Kantor Advokat & Konsultan Hukum Surya & Partners',
+    alamat_kerja:'Jl. Sudirman Kav. 52-53, Senayan, Jakarta Selatan 12190',
+    posisi:'Associate Lawyer',
+    jenis:'Swasta',
+    sosmed_kerja:'linkedin.com/company/surya-partners-law | instagram.com/suryapartners'
+  },
+  // ── KEGURUAN ──
+  '201710330311282': {
+    linkedin:'linkedin.com/in/intan-permatasari-edu',
+    ig:'@intanpermata.guru',
+    fb:'facebook.com/intan.permatasari.edu',
+    tiktok:'@intanguru',
+    email:'intan.permatasari.edu@gmail.com',
+    hp:'085712340987',
+    tempat_kerja:'SMA Negeri 1 Malang',
+    alamat_kerja:'Jl. Tugu Utara No. 1, Klojen, Malang 65119',
+    posisi:'Guru Matematika',
+    jenis:'PNS',
+    sosmed_kerja:'instagram.com/sman1_malang | facebook.com/sman1malang'
+  },
+  '201810350311044': {
+    linkedin:'linkedin.com/in/rizky-amelia-putri',
+    ig:'@rizkyamelia.sd',
+    fb:'facebook.com/rizky.amelia.putri.pgsd',
+    tiktok:'@rizkygurusd',
+    email:'rizkyamelia.pgsd@gmail.com',
+    hp:'089876543210',
+    tempat_kerja:'SD Islam Al-Azhar 26 Malang',
+    alamat_kerja:'Jl. Joyo Grand No. 1, Merjosari, Malang 65144',
+    posisi:'Guru Kelas IV',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/alazhar26malang | facebook.com/alazhar26malang'
+  },
+  // ── ILMU KESEHATAN ──
+  '201710680311218': {
+    linkedin:'linkedin.com/in/nisa-aulia-rahmawati',
+    ig:'@nisaaulia.farm',
+    fb:'facebook.com/nisa.aulia.farmasi',
+    tiktok:'@nisafarmasi',
+    email:'nisaaulia.farm@gmail.com',
+    hp:'081345678901',
+    tempat_kerja:'Apotek Kimia Farma Malang Kota',
+    alamat_kerja:'Jl. Basuki Rahmat No. 2, Klojen, Malang 65119',
+    posisi:'Apoteker Penanggung Jawab',
+    jenis:'BUMN',
+    sosmed_kerja:'instagram.com/kimiafarma | tiktok.com/@kimiafarma'
+  },
+  '201810670311044': {
+    linkedin:'linkedin.com/in/ayu-permata-dewi',
+    ig:'@ayupermata.ft',
+    fb:'facebook.com/ayu.permata.fisio',
+    tiktok:'@ayufisioterapi',
+    email:'ayupermata.fisio@gmail.com',
+    hp:'082987654321',
+    tempat_kerja:'RS Universitas Brawijaya Malang',
+    alamat_kerja:'Jl. Soekarno Hatta No. 2, Lowokwaru, Malang 65145',
+    posisi:'Fisioterapis',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/rsubmalang | facebook.com/RSUniversitasBrawijaya'
+  },
+  // ── KEDOKTERAN ──
+  '201610750311234': {
+    linkedin:'linkedin.com/in/faris-alghifari-dr',
+    ig:'@drfaris.id',
+    fb:'facebook.com/faris.alghifari.dokter',
+    tiktok:'@drfaris',
+    email:'faris.alghifari.dr@gmail.com',
+    hp:'081298765432',
+    tempat_kerja:'RSUD Ngudi Waluyo Blitar',
+    alamat_kerja:'Jl. Sudanco Supriyadi No. 45, Wlingi, Blitar 66184',
+    posisi:'Dokter Umum',
+    jenis:'PNS',
+    sosmed_kerja:'instagram.com/rsudngudiwaliyo | facebook.com/RSNgudiWaluyo'
+  },
+  // ── EKONOMI & BISNIS ──
+  '201310170311356': {
+    linkedin:'linkedin.com/in/hamdyah-candra-laila',
+    ig:'@hamdyahcandra',
+    fb:'facebook.com/hamdyah.candra.laila',
+    tiktok:'@hamdyahfinance',
+    email:'hamdyah.laila@gmail.com',
+    hp:'085601234567',
+    tempat_kerja:'PT Bank Central Asia Tbk (BCA)',
+    alamat_kerja:'Jl. MH Thamrin No. 22, Menteng, Jakarta Pusat 10350',
+    posisi:'Financial Analyst',
+    jenis:'Swasta',
+    sosmed_kerja:'instagram.com/goodlifebca | linkedin.com/company/bank-central-asia'
+  },
+  '201610150311278': {
+    linkedin:'linkedin.com/in/reza-pahlevi-santoso',
+    ig:'@rezapahlevi.biz',
+    fb:'facebook.com/reza.pahlevi.s',
+    tiktok:'@rezabizness',
+    email:'rezapahlevi.biz@gmail.com',
+    hp:'081765432109',
+    tempat_kerja:'CV Nusantara Mandiri (Wirausaha)',
+    alamat_kerja:'Jl. Soekarno Hatta No. 10, Lowokwaru, Malang 65141',
+    posisi:'Direktur Utama',
+    jenis:'Wirausaha',
+    sosmed_kerja:'instagram.com/nusantaramandiri.id | tiktok.com/@nusantaramandiri'
+  },
+  // ── ISIP ──
+  '201610240311148': {
+    linkedin:'linkedin.com/in/gilang-ramadhan-putra',
+    ig:'@gilangram.pol',
+    fb:'facebook.com/gilang.ramadhan.politik',
+    tiktok:'@gilangpolitik',
+    email:'gilang.ramadhan.gov@gmail.com',
+    hp:'087612345678',
+    tempat_kerja:'Badan Kepegawaian Daerah Kota Malang',
+    alamat_kerja:'Jl. Tugu No. 1, Klojen, Malang 65119',
+    posisi:'Analis Kebijakan Muda',
+    jenis:'PNS',
+    sosmed_kerja:'instagram.com/bkd_kota_malang | facebook.com/bkdkotamalang'
+  },
+  // ── AGAMA ISLAM ──
+  '201710020311026': {
+    linkedin:'linkedin.com/in/siti-hafsa-umm',
+    ig:'@sitihafsa.law',
+    fb:'facebook.com/siti.hafsa.umm',
+    tiktok:'@sitihafsakonsultan',
+    email:'sitihafsa.law@gmail.com',
+    hp:'082156789012',
+    tempat_kerja:'Pengadilan Agama Kota Malang',
+    alamat_kerja:'Jl. Raden Panji Suroso No. 1, Malang 65125',
+    posisi:'Panitera Muda',
+    jenis:'PNS',
+    sosmed_kerja:'instagram.com/pa_malangkota | facebook.com/PengadilanAgamaMalangKota'
+  },
+  // ── PERTANIAN ──
+  '201710330311282_agro': {
+    linkedin:'linkedin.com/in/wahyu-setiawan-agro',
+    ig:'@wahyuagro',
+    fb:'facebook.com/wahyu.setiawan.pertanian',
+    tiktok:'@wahyupetani',
+    email:'wahyusetiawan.agro@gmail.com',
+    hp:'089123456789',
+    tempat_kerja:'Dinas Pertanian Kabupaten Malang',
+    alamat_kerja:'Jl. Merdeka No. 3, Kepanjen, Malang 65163',
+    posisi:'Penyuluh Pertanian Lapangan',
+    jenis:'PNS',
+    sosmed_kerja:'instagram.com/dinaspertanianmalang | facebook.com/DinaspertanianKabMalang'
+  },
 };
 
 // App state
@@ -1740,14 +2020,17 @@ function openModal(nim) {
   // Contact fields
   const c = contactData[nim] || {};
   const fields = [
-    { key:'linkedin', label:'LinkedIn', icon:'💼', bg:'#eff6ff', placeholder:'linkedin.com/in/...' },
-    { key:'ig', label:'Instagram', icon:'📸', bg:'#fdf4ff', placeholder:'@username' },
-    { key:'email', label:'Email', icon:'📧', bg:'#f0fdf4', placeholder:'email@domain.com' },
-    { key:'hp', label:'No. HP', icon:'📱', bg:'#fff7ed', placeholder:'08xxxxxxxxxx' },
-    { key:'tempat_kerja', label:'Tempat Bekerja', icon:'🏢', bg:'#faf5ff', placeholder:'Nama perusahaan/instansi' },
-    { key:'alamat_kerja', label:'Alamat Kerja', icon:'📍', bg:'#f0fdf4', placeholder:'Kota, Provinsi' },
-    { key:'posisi', label:'Posisi/Jabatan', icon:'👔', bg:'#eff6ff', placeholder:'Contoh: Software Engineer' },
-    { key:'jenis', label:'Status Kerja', icon:'📋', bg:'#fff7ed', placeholder:'PNS / Swasta / Wirausaha' },
+    { key:'linkedin',     label:'LinkedIn',                     icon:'💼', bg:'#eff6ff', placeholder:'linkedin.com/in/username' },
+    { key:'ig',           label:'Instagram',                    icon:'📸', bg:'#fdf4ff', placeholder:'@username' },
+    { key:'fb',           label:'Facebook',                     icon:'📘', bg:'#e8f0fe', placeholder:'facebook.com/namaakun' },
+    { key:'tiktok',       label:'TikTok',                       icon:'🎵', bg:'#fff0f9', placeholder:'@username' },
+    { key:'email',        label:'Email',                        icon:'📧', bg:'#f0fdf4', placeholder:'email@domain.com' },
+    { key:'hp',           label:'No. HP / WhatsApp',            icon:'📱', bg:'#fff7ed', placeholder:'08xxxxxxxxxx' },
+    { key:'tempat_kerja', label:'Tempat Bekerja',               icon:'🏢', bg:'#faf5ff', placeholder:'Nama perusahaan / instansi' },
+    { key:'alamat_kerja', label:'Alamat Lengkap Tempat Kerja',  icon:'📍', bg:'#f0fdf4', placeholder:'Jl. ..., Kota, Provinsi' },
+    { key:'posisi',       label:'Posisi / Jabatan',             icon:'👔', bg:'#eff6ff', placeholder:'Contoh: Software Engineer' },
+    { key:'jenis',        label:'Status Pekerjaan',             icon:'📋', bg:'#fff7ed', placeholder:'PNS / Swasta / BUMN / Wirausaha' },
+    { key:'sosmed_kerja', label:'Sosial Media Tempat Kerja',    icon:'🔗', bg:'#f0fdf4', placeholder:'instagram.com/namainstansi | linkedin.com/company/...' },
   ];
 
   document.getElementById('modal-contact-fields').innerHTML = fields.map(f => `
